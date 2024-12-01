@@ -1,18 +1,13 @@
-using AdventOfCode2024.Helpers;
-
 namespace AdventOfCode2024.Test.Day1;
-
-using AdventOfCode2024.Day1;
 
 public class Tests
 {
-    Day1 _day1;
+    AdventOfCode2024.Day1.Day1 _day1;
 
     [SetUp]
     public void SetUp()
     {
-        var input = Constants.BasePath + "day1_example.txt";
-        _day1 = new Day1(input);
+        _day1 = new AdventOfCode2024.Day1.Day1();
     }
 
     #region Part1
@@ -59,8 +54,7 @@ public class Tests
     
     [Test] public void ShouldSumAllDistancesForPuzzleInput()
     {
-        var input = Constants.BasePath + "day1_actual.txt";
-        _day1 = new Day1(input);
+        _day1 = new AdventOfCode2024.Day1.Day1(true);
         Assert.That(_day1.Part1(), Is.EqualTo(1388114));
     }
     
@@ -77,8 +71,7 @@ public class Tests
     [Test]
     public void ShouldDoPart2_actual()
     {
-        var input = Constants.BasePath + "day1_actual.txt";
-        _day1 = new Day1(input);
+        _day1 = new AdventOfCode2024.Day1.Day1(true);
         Assert.That(_day1.Part2(), Is.EqualTo(23529853));
     }
 

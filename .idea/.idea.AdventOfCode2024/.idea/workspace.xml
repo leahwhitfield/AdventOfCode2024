@@ -8,47 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec6ba4b6-ecf1-41c9-9140-4928409c2e71" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.AdventOfCode2024/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AdventOfCode2024/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdventOfCode2024/Helpers/IChallenge.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Day1/Day1Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/Day1/Day1Test.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day1_example.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day1_example.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day1_example2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day2_actual.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day2_example.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day3_actual.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day3_example.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day4_actual.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day4_example.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day5_actual.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day5_example.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day6_actual.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Input/day6_example.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/bin/Debug/net8.0/AdventOfCode2024.Test.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/bin/Debug/net8.0/AdventOfCode2024.Test.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/bin/Debug/net8.0/AdventOfCode2024.Test.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/bin/Debug/net8.0/AdventOfCode2024.Test.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/bin/Debug/net8.0/AdventOfCode2024.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/bin/Debug/net8.0/AdventOfCode2024.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/bin/Debug/net8.0/AdventOfCode2024.exe" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/bin/Debug/net8.0/AdventOfCode2024.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/bin/Debug/net8.0/AdventOfCode2024.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/bin/Debug/net8.0/AdventOfCode2024.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/AdventOfCode2024.Test.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/ref/AdventOfCode2024.Test.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/ref/AdventOfCode2024.Test.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/refint/AdventOfCode2024.Test.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/obj/Debug/net8.0/refint/AdventOfCode2024.Test.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/AdventOfCode2024.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/AdventOfCode2024.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AdventOfCode2024/Day1/Day1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/Day1/Day1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/Input/day1_example.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/bin/Debug/net8.0/AdventOfCode2024.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/bin/Debug/net8.0/AdventOfCode2024.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/bin/Debug/net8.0/AdventOfCode2024.exe" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/bin/Debug/net8.0/AdventOfCode2024.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/bin/Debug/net8.0/AdventOfCode2024.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/bin/Debug/net8.0/AdventOfCode2024.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/AdventOfCode2024.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/AdventOfCode2024.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/AdventOfCode2024.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/AdventOfCode2024.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/AdventOfCode2024.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/AdventOfCode2024.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/AdventOfCode2024.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/AdventOfCode2024.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/AdventOfCode2024.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/AdventOfCode2024.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/apphost.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/ref/AdventOfCode2024.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/ref/AdventOfCode2024.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/refint/AdventOfCode2024.dll" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/obj/Debug/net8.0/refint/AdventOfCode2024.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/Helpers/Challenge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/Helpers/Challenge.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +22,7 @@
     <option name="autoShow" value="false" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/runtime/9cb3b725e3ad2b57ddc9fb2dd48d2d170563a8f5/src/libraries/System.Linq/src/System/Linq/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/46a322d26154b982566e1817203e5452c91223f93b0e392d9c5b4806696fdc1/Assert.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
@@ -117,7 +81,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1733079039308</updated>
-      <workItem from="1733079040405" duration="2314000" />
+      <workItem from="1733079040405" duration="4340000" />
     </task>
     <servers />
   </component>

@@ -2,20 +2,14 @@ using AdventOfCode2024.Helpers;
 
 namespace AdventOfCode2024.Day1
 {
-    public class Day1 : IChallenge
+    public class Day1(bool useActual = false) : Challenge('1', useActual)
     {
-        private readonly List<string> _data = [];
         public readonly List<int> FirstList = new();
         public readonly List<int> SecondList = new();
 
-        public Day1(String input)
-        {
-            FileHelper.ReadFromInputFileByLine(input, (line) => _data.Add(line));
-        }
-
         public void LoadLists()
         {
-            foreach (var values in _data.Select(line => line.Split("   ")))
+            foreach (var values in Data.Select(line => line.Split("   ")))
             {
                 FirstList.Add(int.Parse(values[0]));
                 SecondList.Add(int.Parse(values[1]));
@@ -28,7 +22,7 @@ namespace AdventOfCode2024.Day1
             SecondList.Sort();
         }
 
-        public int Part1()
+        public override int Part1()
         {
             LoadLists();
             SortLists();
@@ -52,7 +46,7 @@ namespace AdventOfCode2024.Day1
             return number * SecondList.FindAll(i => i == number).Count;
         }
 
-        public int Part2()
+        public override int Part2()
         {
             LoadLists();
             SortLists();

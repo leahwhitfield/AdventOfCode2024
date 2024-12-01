@@ -1,10 +1,16 @@
-using System;
+﻿namespace AdventOfCode2024.Helpers;
 
-namespace AdventOfCode2024.Helpers
+public abstract class Challenge : IChallenge
 {
-    public interface IChallenge
+    public abstract int Part1();
+    public abstract int Part2();
+
+    protected readonly List<string> Data = [];
+
+    public Challenge(char day, bool useActual)
     {
-        int Part1();
-        int Part2();
+        var input = useActual ? "actual" : "example";
+        FileHelper.ReadFromInputFileByLine(Constants.BasePath + "day" + day + "_" + input + ".txt",
+            (line) => Data.Add(line));
     }
 }
