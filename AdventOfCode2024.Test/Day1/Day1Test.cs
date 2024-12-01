@@ -1,6 +1,6 @@
 namespace AdventOfCode2024.Test.Day1;
 
-public class Tests
+public class Day1Test
 {
     AdventOfCode2024.Day1.Day1 _day1;
 

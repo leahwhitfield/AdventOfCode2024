@@ -8,10 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec6ba4b6-ecf1-41c9-9140-4928409c2e71" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AdventOfCode2024/Helpers/IChallenge.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/Day2/Day2Test.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AdventOfCode2024/Day2/Day2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AdventOfCode2024.Test/Day1/Day1Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024.Test/Day1/Day1Test.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/Day1/Day1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/Day1/Day1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AdventOfCode2024/Helpers/Challenge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AdventOfCode2024/Helpers/Challenge.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1733079039308</updated>
-      <workItem from="1733079040405" duration="4340000" />
+      <workItem from="1733079040405" duration="4870000" />
     </task>
     <servers />
   </component>
