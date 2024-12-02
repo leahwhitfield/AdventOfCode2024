@@ -74,11 +74,28 @@ public class Day2Test
     #endregion
 
     #region Part2
+    
+    [Test]
+    public void ShouldBeSafePart2()
+    {
+        Assert.True(new Report([7,6,4,2,1]).IsSafeProblemDampener());
+        Assert.True(new Report([1,3,2,4,5]).IsSafeProblemDampener());
+        Assert.True(new Report([8,6,4,4,1]).IsSafeProblemDampener());
+        Assert.True(new Report([1,3,6,7,9]).IsSafeProblemDampener());
+        Assert.True(new Report([7,8,6,7,2]).IsSafeProblemDampener());
+    }    
+    
+    [Test]
+    public void ShouldBeUnsafePart2()
+    {
+        Assert.False(new Report([1,2,7,8,9]).IsSafeProblemDampener());
+        Assert.False(new Report([9,7,6,2,1]).IsSafeProblemDampener());
+    }
 
     [Test]
     public void ShouldDoPart2()
     {
-        Assert.That(_day2.Part2(), Is.EqualTo(0));
+        Assert.That(_day2.Part2(), Is.EqualTo(4));
     }
 
     [Test]

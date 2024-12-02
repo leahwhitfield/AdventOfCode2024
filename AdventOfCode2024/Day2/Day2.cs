@@ -23,7 +23,9 @@ namespace AdventOfCode2024.Day2
 
         public override int Part2()
         {
-            return 0;
+            LoadReports();
+
+            return Reports.Count(report => report.IsSafeProblemDampener());
         }
     }
 }
