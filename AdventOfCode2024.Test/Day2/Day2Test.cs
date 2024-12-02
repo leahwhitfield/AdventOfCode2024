@@ -82,7 +82,7 @@ public class Day2Test
         Assert.True(new Report([1,3,2,4,5]).IsSafeProblemDampener());
         Assert.True(new Report([8,6,4,4,1]).IsSafeProblemDampener());
         Assert.True(new Report([1,3,6,7,9]).IsSafeProblemDampener());
-        Assert.True(new Report([7,8,6,7,2]).IsSafeProblemDampener());
+        Assert.True(new Report([7,8,6,5,2]).IsSafeProblemDampener());
     }    
     
     [Test]
@@ -102,7 +102,7 @@ public class Day2Test
     public void ShouldDoPart2_actual()
     {
         _day2 = new(true);
-        Assert.That(_day2.Part2(), Is.EqualTo(0));
+        Assert.That(_day2.Part2(), Is.EqualTo(301));
     }
 
     #endregion
