@@ -9,7 +9,7 @@ namespace AdventOfCode2024.Day3
         private string Program = "";
         Regex mulRegex = new Regex(@"mul\(([0-9]+),([0-9]+)\)");
         
-        public void LoadData()
+        public override void LoadData()
         {
             foreach (var line in Data)
             {
@@ -18,7 +18,6 @@ namespace AdventOfCode2024.Day3
         }
         public override int Part1()
         {
-            LoadData();
             int total = 0;
 
             total += FindMultiplyCommands(Program);
@@ -87,7 +86,6 @@ namespace AdventOfCode2024.Day3
 
         public override int Part2()
         {
-            LoadData();
             int total = 0;
             total += FindMultiplyCommandsPart2(Program);
             return total;

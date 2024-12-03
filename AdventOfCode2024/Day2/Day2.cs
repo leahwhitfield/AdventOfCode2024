@@ -7,7 +7,7 @@ namespace AdventOfCode2024.Day2
     {
         public List<Report> Reports { get; } = [];
 
-        public void LoadReports()
+        public override void LoadData()
         {
             foreach (var values in Data.Select(line => line.Split(" ")))
             {
@@ -16,15 +16,11 @@ namespace AdventOfCode2024.Day2
         }
         public override int Part1()
         {
-            LoadReports();
-
             return Reports.Count(report => report.IsSafe());
         }
 
         public override int Part2()
         {
-            LoadReports();
-
             return Reports.Count(report => report.IsSafeProblemDampener());
         }
     }

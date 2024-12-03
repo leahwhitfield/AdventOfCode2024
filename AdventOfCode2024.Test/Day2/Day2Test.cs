@@ -17,7 +17,6 @@ public class Day2Test
     [Test]
     public void ShouldLoadReports()
     {
-        _day2.LoadReports();
         Assert.That(_day2.Reports, Has.Count.EqualTo(6));
         Assert.That(_day2.Reports[2].Levels[3], Is.EqualTo(2));
     }

@@ -14,8 +14,6 @@ public class Day1Test
     [Test]
     public void ShouldReadArrays()
     {
-        _day1.LoadLists();
-        
         var firstList = _day1.FirstList;
         var secondList = _day1.SecondList;
         
@@ -29,8 +27,6 @@ public class Day1Test
     [Test]
     public void ShouldSortArrays()
     {
-        _day1.LoadLists();
-        _day1.SortLists();
         var firstList = _day1.FirstList;
         var secondList = _day1.SecondList;
 

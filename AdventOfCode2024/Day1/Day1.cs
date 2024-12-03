@@ -7,13 +7,14 @@ namespace AdventOfCode2024.Day1
         public readonly List<int> FirstList = new();
         public readonly List<int> SecondList = new();
 
-        public void LoadLists()
+        public override void LoadData()
         {
             foreach (var values in Data.Select(line => line.Split("   ")))
             {
                 FirstList.Add(int.Parse(values[0]));
                 SecondList.Add(int.Parse(values[1]));
             }
+            SortLists();
         }
 
         public void SortLists()
@@ -24,9 +25,6 @@ namespace AdventOfCode2024.Day1
 
         public override int Part1()
         {
-            LoadLists();
-            SortLists();
-
             var distanceCount = 0;
             for (int i = 0; i < FirstList.Count; i++)
             {
@@ -48,9 +46,6 @@ namespace AdventOfCode2024.Day1
 
         public override int Part2()
         {
-            LoadLists();
-            SortLists();
-
             var similarityScore = 0;
             for (int i = 0; i < FirstList.Count; i++)
             {
