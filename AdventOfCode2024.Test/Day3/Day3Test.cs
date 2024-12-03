@@ -14,14 +14,14 @@ public class Day3Test
     [Test]
     public void ShouldDoPart1()
     {
-        Assert.That(_day3.Part1(), Is.EqualTo(0));
+        Assert.That(_day3.Part1(), Is.EqualTo(161));
     }
 
     [Test]
     public void ShouldDoPart1_Actual()
     {
         _day3 = new(true);
-        Assert.That(_day3.Part1(), Is.EqualTo(0));
+        Assert.That(_day3.Part1(), Is.EqualTo(178794710));
     }
 
     #endregion
@@ -30,14 +30,14 @@ public class Day3Test
     [Test]
     public void ShouldDoPart2()
     {
-        Assert.That(_day3.Part2(), Is.EqualTo(0));
+        Assert.That(_day3.Part2(), Is.EqualTo(48));
     }
 
     [Test]
     public void ShouldDoPart2_actual()
     {
         _day3 = new(true);
-        Assert.That(_day3.Part2(), Is.EqualTo(0));
+        Assert.That(_day3.Part2(), Is.EqualTo(76729637));
     }
 
     #endregion
