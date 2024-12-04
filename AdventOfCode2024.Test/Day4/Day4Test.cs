@@ -152,16 +152,46 @@ public class Day4Test
     #region Part2
 
     [Test]
+    public void ShouldFindXMas()
+    {
+        char[][] wordsearch =
+        [
+            ['S', 'T', 'T'],
+            ['M', 'T', 'M'],
+            ['Q', 'A', 'T'],
+            ['S', 'Q', 'S', 'T']
+        ];
+
+        var count = _day4.FindCrosses("MAS", wordsearch);
+        Assert.That(count, Is.EqualTo(1));
+    }
+    
+    [Test]
+    public void ShouldFind2XMas()
+    {
+        char[][] wordsearch =
+        [
+            ['S', 'T', 'T','M','Q','S'],
+            ['M', 'T', 'M','Q','A','Q'],
+            ['Q', 'A', 'T','M','Q', 'S'],
+            ['S', 'Q', 'S', 'T','Q','Q']
+        ];
+
+        var count = _day4.FindCrosses("MAS", wordsearch);
+        Assert.That(count, Is.EqualTo(2));
+    }
+
+    [Test]
     public void ShouldDoPart2()
     {
-        Assert.That(_day4.Part2(), Is.EqualTo(0));
+        Assert.That(_day4.Part2(), Is.EqualTo(9));
     }
 
     [Test]
     public void ShouldDoPart2_actual()
     {
         _day4 = new(true);
-        Assert.That(_day4.Part2(), Is.EqualTo(0));
+        Assert.That(_day4.Part2(), Is.EqualTo(1992));
     }
 
     #endregion

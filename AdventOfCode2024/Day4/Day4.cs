@@ -62,14 +62,8 @@ namespace AdventOfCode2024.Day4
         private int HorizontalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
         {
             var matches = 0;
-            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, 0, 1))
-            {
-                matches++;
-            }
-            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, 0, -1))
-            {
-                matches++;
-            }
+            if (HorizontalRightMatch(wordsearch, lineIndex, letterIndex, word)) matches++;
+            if (HorizontalLeftMatch(wordsearch, lineIndex, letterIndex, word)) matches++;
 
             return matches;
         }
@@ -78,46 +72,119 @@ namespace AdventOfCode2024.Day4
         private int VerticalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
         {
             var matches = 0;
-            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, 1, 0))
-            {
-                matches++;
-            }
-            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, -1, 0))
-            {
-                matches++;
-            }
+            if (VerticalUpMatch(wordsearch, lineIndex, letterIndex, word)) matches++;
+            if (VerticalDownMatch(wordsearch, lineIndex, letterIndex, word)) matches++;
 
             return matches;
+        }
+
+        private bool HorizontalRightMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            return CheckDirection(wordsearch, lineIndex, letterIndex, word, 0, 1);
+        }
+
+        private bool HorizontalLeftMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            return CheckDirection(wordsearch, lineIndex, letterIndex, word, 0, -1);
+        }
+
+        private bool VerticalUpMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            return CheckDirection(wordsearch, lineIndex, letterIndex, word, 1, 0);
+        }
+
+        private bool VerticalDownMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            return CheckDirection(wordsearch, lineIndex, letterIndex, word, -1, 0);
+        }
+
+        private bool DownRightMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            return CheckDirection(wordsearch, lineIndex, letterIndex, word, 1, 1);
+        }
+
+        private bool DownLeftMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            return CheckDirection(wordsearch, lineIndex, letterIndex, word, 1, -1);
+        }
+
+        private bool UpLeftMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            return CheckDirection(wordsearch, lineIndex, letterIndex, word, -1, -1);
+        }
+
+        private bool UpRightMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            return CheckDirection(wordsearch, lineIndex, letterIndex, word, -1, 1);
         }
 
         private int DiagonalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
         {
             var matches = 0;
-            // down right
-            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, 1, 1))
-            {
-                matches++;
-            }
 
-            // up left
-            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, -1, -1))
-            {
-                matches++;
-            }
+            if (DownRightMatch(wordsearch, lineIndex, letterIndex, word)) matches++;
 
-            // up right
-            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, -1, 1))
-            {
-                matches++;
-            }
+            if (UpLeftMatch(wordsearch, lineIndex, letterIndex, word)) matches++;
 
-            // down left
-            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, 1, -1))
-            {
-                matches++;
-            }
+            if (UpRightMatch(wordsearch, lineIndex, letterIndex, word)) matches++;
+
+            if (DownLeftMatch(wordsearch, lineIndex, letterIndex, word)) matches++;
 
             return matches;
+        }
+
+        public int FindCrosses(string word, char[][] wordsearch)
+        {
+            var total = 0;
+            List<int[]> matchIndices = [];
+            for (int i = 0; i < wordsearch.Length; i++)
+            {
+                var line = wordsearch[i];
+                for (var j = 0; j < line.Length; j++)
+                {
+                    var letter = line[j];
+                    if (letter != word[0]) continue;
+                    if (UpLeftMatch(wordsearch, i, j, word))
+                    {
+                        int[] indices = [i - 1, j - 1];
+                        if (matchIndices.Any(x => x[0] == indices[0] && x[1] == indices[1])) total++;
+                        else
+                        {
+                            matchIndices.Add(indices);
+                        }
+                    }
+                    if (UpRightMatch(wordsearch, i, j, word))
+                    {
+                        int[] indices = [i - 1, j + 1];
+                        if (matchIndices.Any(x => x[0] == indices[0] && x[1] == indices[1])) total++;
+                        else
+                        {
+                            matchIndices.Add(indices);
+                        }
+                    }
+                    if (DownLeftMatch(wordsearch, i, j, word))
+                    {
+                        int[] indices = [i + 1, j - 1];
+                        if (matchIndices.Any(x => x[0] == indices[0] && x[1] == indices[1])) total++;
+                        else
+                        {
+                            matchIndices.Add(indices);
+                        }
+                    }
+
+                    if (!DownRightMatch(wordsearch, i, j, word)) continue;
+                    {
+                        int[] indices = [i + 1, j + 1];
+                        if (matchIndices.Any(x => x[0] == indices[0] && x[1] == indices[1])) total++;
+                        else
+                        {
+                            matchIndices.Add(indices);
+                        }
+                    }
+                }
+            }
+
+            return total;
         }
 
         public override int Part1()
@@ -127,7 +194,7 @@ namespace AdventOfCode2024.Day4
 
         public override int Part2()
         {
-            return 0;
+            return FindCrosses("MAS", Wordsearch);
         }
     }
 }
