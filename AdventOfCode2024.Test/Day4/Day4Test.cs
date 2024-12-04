@@ -43,11 +43,17 @@ public class Day4Test
         var count = _day4.WordCount("XMAS", wordsearch);
         Assert.That(count, Is.EqualTo(1));
     }
-    
+
     [Test]
     public void ShouldFindReverseVerticalXmas()
     {
-        char[][] wordsearch = [['S'], ['A'], ['M'], ['X']];
+        char[][] wordsearch =
+        [
+            ['S'],
+            ['A'],
+            ['M'],
+            ['X']
+        ];
 
         var count = _day4.WordCount("XMAS", wordsearch);
         Assert.That(count, Is.EqualTo(1));
@@ -56,14 +62,20 @@ public class Day4Test
     [Test]
     public void ShouldNotFindIncompleteReverseVerticalXmas()
     {
-        char[][] wordsearch = [['X'], ['A'], ['M'], ['X']];
+        char[][] wordsearch =
+        [
+            ['X'],
+            ['A'],
+            ['M'],
+            ['X']
+        ];
 
         var count = _day4.WordCount("XMAS", wordsearch);
         Assert.That(count, Is.EqualTo(0));
     }
 
     [Test]
-    public void ShouldFindDiagonalXmas()
+    public void ShouldFindDownRightDiagonalXmas()
     {
         char[][] wordsearch =
         [
@@ -76,9 +88,39 @@ public class Day4Test
         var count = _day4.WordCount("XMAS", wordsearch);
         Assert.That(count, Is.EqualTo(1));
     }
-    
+
     [Test]
-    public void ShouldFindReverseDiagonalXmas()
+    public void ShouldFindDownLeftDiagonalXmas()
+    {
+        char[][] wordsearch =
+        [
+            ['Q', 'Q', 'Q', 'X'],
+            ['Q', 'Q', 'M', 'S'],
+            ['Q', 'A', 'Q', 'S'],
+            ['S', 'Q', 'Q', 'S']
+        ];
+
+        var count = _day4.WordCount("XMAS", wordsearch);
+        Assert.That(count, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void ShouldFindUpRightDiagonalXmas()
+    {
+        char[][] wordsearch =
+        [
+            ['Q', 'Q', 'Q', 'S'],
+            ['Q', 'Q', 'A', 'S'],
+            ['Q', 'M', 'Q', 'S'],
+            ['X', 'Q', 'Q', 'S']
+        ];
+
+        var count = _day4.WordCount("XMAS", wordsearch);
+        Assert.That(count, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void ShouldFindUpLeftDiagonalXmas()
     {
         char[][] wordsearch =
         [

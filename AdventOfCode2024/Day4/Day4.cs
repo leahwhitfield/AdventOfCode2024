@@ -36,44 +36,86 @@ namespace AdventOfCode2024.Day4
 
         private bool MatchesWord(char[][] wordsearch, int lineIndex, int letterIndex, string word)
         {
-            if (IsHorizontalMatch(wordsearch, lineIndex, letterIndex, word)) return true;
-            if (IsVerticalMatch(wordsearch, lineIndex, letterIndex, word)) return true;
-            if (IsDiagonalMatch(wordsearch, lineIndex, letterIndex, word)) return true;
-
-            return false;
-        }
-
-        private bool IsHorizontalMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
-        {
+            var potentialVerticalMatch = true;
+            var potentialHorizontalMatch = true;
+            var potentialDiagonalMatch = true;
             for (int i = 0; i < word.Length; i++)
             {
-                if (wordsearch[lineIndex].Length <= letterIndex + i) return false;
-                if (wordsearch[lineIndex][letterIndex + i] != word[i]) return false;
+                if (potentialVerticalMatch && !CheckVertical(wordsearch, lineIndex, letterIndex, word, i))
+                {
+                    potentialVerticalMatch = false;
+                }
+
+                if (potentialHorizontalMatch && !CheckHorizontal(wordsearch, lineIndex, letterIndex, word, i))
+                {
+                    potentialHorizontalMatch = false;
+                }
+
+                if (potentialDiagonalMatch && !CheckDiagonal(wordsearch, lineIndex, letterIndex, word, i))
+                {
+                    potentialDiagonalMatch = false;
+                }
             }
 
+            if (potentialVerticalMatch || potentialHorizontalMatch || potentialDiagonalMatch) return true;
+            potentialVerticalMatch = true;
+            potentialHorizontalMatch = true;
+            potentialDiagonalMatch = true;
+
+            for (var i = 0; i > -word.Length; i--)
+            {
+                if (potentialVerticalMatch && !CheckVertical(wordsearch, lineIndex, letterIndex, word, i))
+                {
+                    potentialVerticalMatch = false;
+                }
+
+                if (potentialHorizontalMatch && !CheckHorizontal(wordsearch, lineIndex, letterIndex, word, i))
+                {
+                    potentialHorizontalMatch = false;
+                }
+
+                if (potentialDiagonalMatch && !CheckDiagonal(wordsearch, lineIndex, letterIndex, word, i))
+                {
+                    potentialDiagonalMatch = false;
+                }
+            }
+
+            return potentialVerticalMatch || potentialHorizontalMatch || potentialDiagonalMatch;
+        }
+
+
+        private static bool CheckHorizontal(char[][] wordsearch, int lineIndex, int letterIndex, string word, int i)
+        {
+            if (wordsearch[lineIndex].Length <= letterIndex + i || letterIndex + i < 0) return false;
+            return wordsearch[lineIndex][letterIndex + i] == word[Math.Abs(i)];
+        }
+
+
+        private static bool CheckVertical(char[][] wordsearch, int lineIndex, int letterIndex, string word, int i)
+        {
+            if (wordsearch.Length <= lineIndex + i || lineIndex + i < 0 ||
+                wordsearch[lineIndex + i].Length <= letterIndex) return false;
+            if (wordsearch[lineIndex + i][letterIndex] != word[Math.Abs(i)]) return false;
             return true;
         }
-        
-        private bool IsVerticalMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+
+        private static bool CheckDiagonal(char[][] wordsearch, int lineIndex, int letterIndex, string word, int i)
         {
-            for (int i = 0; i < word.Length; i++)
+            if (!(lineIndex + i < 0 || letterIndex + i < 0 || wordsearch.Length <= i + lineIndex ||
+                  wordsearch[i + lineIndex].Length <= i + letterIndex))
             {
-                if (wordsearch.Length <= lineIndex + i) return false;
-                if (wordsearch[lineIndex + i][letterIndex] != word[i]) return false;
+                if (wordsearch[i + lineIndex][i + letterIndex] == word[Math.Abs(i)]) return true;
             }
 
-            return true;
-        }
-        
-        private bool IsDiagonalMatch(char[][] wordsearch, int lineIndex, int letterIndex, string word)
-        {
-            for (int i = 0; i < word.Length; i++)
+            if (!(lineIndex + i < 0 || letterIndex - i < 0 || wordsearch.Length <= i + lineIndex ||
+                  letterIndex + i < 0))
             {
-                if (wordsearch.Length <= i + lineIndex || wordsearch[i + lineIndex].Length <= i + letterIndex) return false;
-                if (wordsearch[i + lineIndex][i + letterIndex] != word[i]) return false;
+                if (wordsearch[i + lineIndex][letterIndex - i] == word[Math.Abs(i)]) return true;
             }
-
-            return true;
+            
+            if (letterIndex + i < 0 || lineIndex - i < 0 || wordsearch.Length <= lineIndex - i || lineIndex + i < 0 ||
+                letterIndex + i >= wordsearch[lineIndex - i].Length) return false;
+            return wordsearch[lineIndex - i][i + letterIndex] == word[Math.Abs(i)];
         }
 
         public override int Part1()
