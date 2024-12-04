@@ -26,7 +26,7 @@ namespace AdventOfCode2024.Day4
                     var letter = line[j];
                     if (letter == word[0])
                     {
-                        if (MatchesWord(wordsearch, i, j, word)) total++;
+                        total += WordMatches(wordsearch, i, j, word);
                     }
                 }
             }
@@ -34,8 +34,9 @@ namespace AdventOfCode2024.Day4
             return total;
         }
 
-        private bool MatchesWord(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        private int WordMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
         {
+            var matches = 0;
             var potentialVerticalMatch = true;
             var potentialHorizontalMatch = true;
             var potentialDiagonalMatch = true;
@@ -66,7 +67,7 @@ namespace AdventOfCode2024.Day4
                 }
             }
 
-            return potentialVerticalMatch || potentialHorizontalMatch || potentialDiagonalMatch;
+            return potentialVerticalMatch ? 1 : 0 + (potentialHorizontalMatch ? 1 : 0) + (potentialDiagonalMatch ? 1 : 0);
         }
 
 
@@ -98,7 +99,7 @@ namespace AdventOfCode2024.Day4
             {
                 if (wordsearch[i + lineIndex][letterIndex - i] == word[Math.Abs(i)]) return true;
             }
-            
+
             if (letterIndex + i < 0 || lineIndex - i < 0 || wordsearch.Length <= lineIndex - i || lineIndex + i < 0 ||
                 letterIndex + i >= wordsearch[lineIndex - i].Length) return false;
             return wordsearch[lineIndex - i][i + letterIndex] == word[Math.Abs(i)];
