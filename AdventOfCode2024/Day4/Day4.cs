@@ -36,73 +36,170 @@ namespace AdventOfCode2024.Day4
 
         private int WordMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
         {
-            var matches = 0;
-            var potentialVerticalMatch = true;
-            var potentialHorizontalMatch = true;
-            var potentialDiagonalMatch = true;
+            return VerticalMatches(wordsearch, lineIndex, letterIndex, word) +
+                   HorizontalMatches(wordsearch, lineIndex, letterIndex, word) +
+                   DiagonalMatches(wordsearch, lineIndex, letterIndex, word);
+        }
+
+
+        private static int HorizontalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            var matches = 1;
             for (int i = 0; i < word.Length; i++)
             {
-                if (potentialVerticalMatch && !CheckVertical(wordsearch, lineIndex, letterIndex, word, i))
+                if (wordsearch[lineIndex].Length <= letterIndex + i || letterIndex + i < 0)
                 {
-                    if (!CheckVertical(wordsearch, lineIndex, letterIndex, word, -i))
-                    {
-                        potentialVerticalMatch = false;
-                    }
+                    matches--;
+                    break;
                 }
 
-                if (potentialHorizontalMatch && !CheckHorizontal(wordsearch, lineIndex, letterIndex, word, i))
+                if (wordsearch[lineIndex][letterIndex + i] != word[Math.Abs(i)])
                 {
-                    if (!CheckHorizontal(wordsearch, lineIndex, letterIndex, word, -i))
-                    {
-                        potentialHorizontalMatch = false;
-                    }
-                }
-
-                if (potentialDiagonalMatch && !CheckDiagonal(wordsearch, lineIndex, letterIndex, word, i))
-                {
-                    if (!CheckDiagonal(wordsearch, lineIndex, letterIndex, word, -i))
-                    {
-                        potentialDiagonalMatch = false;
-                    }
+                    matches--;
+                    break;
                 }
             }
 
-            return potentialVerticalMatch ? 1 : 0 + (potentialHorizontalMatch ? 1 : 0) + (potentialDiagonalMatch ? 1 : 0);
-        }
+            matches++;
 
-
-        private static bool CheckHorizontal(char[][] wordsearch, int lineIndex, int letterIndex, string word, int i)
-        {
-            if (wordsearch[lineIndex].Length <= letterIndex + i || letterIndex + i < 0) return false;
-            return wordsearch[lineIndex][letterIndex + i] == word[Math.Abs(i)];
-        }
-
-
-        private static bool CheckVertical(char[][] wordsearch, int lineIndex, int letterIndex, string word, int i)
-        {
-            if (wordsearch.Length <= lineIndex + i || lineIndex + i < 0 ||
-                wordsearch[lineIndex + i].Length <= letterIndex) return false;
-            if (wordsearch[lineIndex + i][letterIndex] != word[Math.Abs(i)]) return false;
-            return true;
-        }
-
-        private static bool CheckDiagonal(char[][] wordsearch, int lineIndex, int letterIndex, string word, int i)
-        {
-            if (!(lineIndex + i < 0 || letterIndex + i < 0 || wordsearch.Length <= i + lineIndex ||
-                  wordsearch[i + lineIndex].Length <= i + letterIndex))
+            for (int i = 0; i > -word.Length; i--)
             {
-                if (wordsearch[i + lineIndex][i + letterIndex] == word[Math.Abs(i)]) return true;
+                if (wordsearch[lineIndex].Length <= letterIndex + i || letterIndex + i < 0)
+                {
+                    matches--;
+                    break;
+                }
+
+                if (wordsearch[lineIndex][letterIndex + i] != word[Math.Abs(i)])
+                {
+                    matches--;
+                    break;
+                }
             }
 
-            if (!(lineIndex + i < 0 || letterIndex - i < 0 || wordsearch.Length <= i + lineIndex ||
-                  letterIndex + i < 0))
+            return matches;
+        }
+
+
+        private static int VerticalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            var matches = 1;
+            for (int i = 0; i < word.Length; i++)
             {
-                if (wordsearch[i + lineIndex][letterIndex - i] == word[Math.Abs(i)]) return true;
+                if (wordsearch.Length <= lineIndex + i || lineIndex + i < 0 ||
+                    wordsearch[lineIndex + i].Length <= letterIndex)
+                {
+                    matches--;
+                    break;
+                }
+
+                if (wordsearch[lineIndex + i][letterIndex] != word[Math.Abs(i)])
+                {
+                    matches--;
+                    break;
+                }
             }
 
-            if (letterIndex + i < 0 || lineIndex - i < 0 || wordsearch.Length <= lineIndex - i || lineIndex + i < 0 ||
-                letterIndex + i >= wordsearch[lineIndex - i].Length) return false;
-            return wordsearch[lineIndex - i][i + letterIndex] == word[Math.Abs(i)];
+            matches++;
+
+            for (int i = 0; i > -word.Length; i--)
+            {
+                if (wordsearch.Length <= lineIndex + i || lineIndex + i < 0 ||
+                    wordsearch[lineIndex + i].Length <= letterIndex)
+                {
+                    matches--;
+                    break;
+                }
+
+                if (wordsearch[lineIndex + i][letterIndex] != word[Math.Abs(i)])
+                {
+                    matches--;
+                    break;
+                }
+            }
+
+            return matches;
+        }
+
+        private static int DiagonalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            var matches = 1;
+            // down right
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (lineIndex + i < 0 || letterIndex + i < 0 || wordsearch.Length <= i + lineIndex ||
+                      wordsearch[i + lineIndex].Length <= i + letterIndex)
+                {
+                    matches--;
+                    break;
+                }
+
+                if (wordsearch[i + lineIndex][i + letterIndex] != word[Math.Abs(i)])
+                {
+                    matches--;
+                    break;
+                }
+            }
+
+            matches++;
+            // up left
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (lineIndex + i < 0 || letterIndex - i < 0 || wordsearch.Length <= i + lineIndex ||
+                      letterIndex + i < 0)
+                {
+                    matches--;
+                    break;
+                }
+
+                if (wordsearch[i + lineIndex][letterIndex - i] != word[Math.Abs(i)])
+                {
+                    matches--;
+                    break;
+                }
+            }
+
+            matches++;
+            // up right
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (letterIndex + i < 0 || lineIndex - i < 0 || wordsearch.Length <= lineIndex - i ||
+                lineIndex + i < 0 ||
+                letterIndex + i >= wordsearch[lineIndex - i].Length)
+                {
+                    matches--;
+                    break;
+                }
+
+                if (wordsearch[lineIndex - i][i + letterIndex] != word[Math.Abs(i)])
+                {
+                    matches--;
+                    break;
+                }
+            }
+
+            matches++;
+            
+            // down left
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (letterIndex - i < 0 || lineIndex - i < 0 || wordsearch.Length <= lineIndex - i ||
+                    lineIndex - i < 0 ||
+                    letterIndex - i >= wordsearch[lineIndex - i].Length)
+                {
+                    matches--;
+                    break;
+                }
+
+                if (wordsearch[lineIndex - i][letterIndex - i] != word[Math.Abs(i)])
+                {
+                    matches--;
+                    break;
+                }
+            }
+            
+
+            return matches;
         }
 
         public override int Part1()

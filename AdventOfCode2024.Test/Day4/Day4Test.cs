@@ -144,7 +144,7 @@ public class Day4Test
     public void ShouldDoPart1_Actual()
     {
         _day4 = new(true);
-        Assert.That(_day4.Part1(), Is.EqualTo(0));
+        Assert.That(_day4.Part1(), Is.EqualTo(2571));
     }
 
     #endregion
