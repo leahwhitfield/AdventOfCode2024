@@ -43,40 +43,26 @@ namespace AdventOfCode2024.Day4
             {
                 if (potentialVerticalMatch && !CheckVertical(wordsearch, lineIndex, letterIndex, word, i))
                 {
-                    potentialVerticalMatch = false;
+                    if (!CheckVertical(wordsearch, lineIndex, letterIndex, word, -i))
+                    {
+                        potentialVerticalMatch = false;
+                    }
                 }
 
                 if (potentialHorizontalMatch && !CheckHorizontal(wordsearch, lineIndex, letterIndex, word, i))
                 {
-                    potentialHorizontalMatch = false;
+                    if (!CheckHorizontal(wordsearch, lineIndex, letterIndex, word, -i))
+                    {
+                        potentialHorizontalMatch = false;
+                    }
                 }
 
                 if (potentialDiagonalMatch && !CheckDiagonal(wordsearch, lineIndex, letterIndex, word, i))
                 {
-                    potentialDiagonalMatch = false;
-                }
-            }
-
-            if (potentialVerticalMatch || potentialHorizontalMatch || potentialDiagonalMatch) return true;
-            potentialVerticalMatch = true;
-            potentialHorizontalMatch = true;
-            potentialDiagonalMatch = true;
-
-            for (var i = 0; i > -word.Length; i--)
-            {
-                if (potentialVerticalMatch && !CheckVertical(wordsearch, lineIndex, letterIndex, word, i))
-                {
-                    potentialVerticalMatch = false;
-                }
-
-                if (potentialHorizontalMatch && !CheckHorizontal(wordsearch, lineIndex, letterIndex, word, i))
-                {
-                    potentialHorizontalMatch = false;
-                }
-
-                if (potentialDiagonalMatch && !CheckDiagonal(wordsearch, lineIndex, letterIndex, word, i))
-                {
-                    potentialDiagonalMatch = false;
+                    if (!CheckDiagonal(wordsearch, lineIndex, letterIndex, word, -i))
+                    {
+                        potentialDiagonalMatch = false;
+                    }
                 }
             }
 
