@@ -41,163 +41,81 @@ namespace AdventOfCode2024.Day4
                    DiagonalMatches(wordsearch, lineIndex, letterIndex, word);
         }
 
-
-        private static int HorizontalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        private bool CheckDirection(char[][] wordsearch, int lineIndex, int letterIndex, string word, int lineIncrease,
+            int letterIncrease)
         {
-            var matches = 1;
             for (int i = 0; i < word.Length; i++)
             {
-                if (wordsearch[lineIndex].Length <= letterIndex + i || letterIndex + i < 0)
-                {
-                    matches--;
-                    break;
-                }
+                if (letterIndex + i * letterIncrease < 0 ||
+                    wordsearch.Length <= lineIndex + i * lineIncrease ||
+                    lineIndex + i * lineIncrease < 0 ||
+                    letterIndex + i * letterIncrease >= wordsearch[lineIndex + i * lineIncrease].Length) return false;
 
-                if (wordsearch[lineIndex][letterIndex + i] != word[Math.Abs(i)])
-                {
-                    matches--;
-                    break;
-                }
+                if (wordsearch[lineIndex + (i * lineIncrease)][letterIndex + (i * letterIncrease)] !=
+                    word[Math.Abs(i)]) return false;
             }
 
-            matches++;
+            return true;
+        }
 
-            for (int i = 0; i > -word.Length; i--)
+
+        private int HorizontalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        {
+            var matches = 0;
+            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, 0, 1))
             {
-                if (wordsearch[lineIndex].Length <= letterIndex + i || letterIndex + i < 0)
-                {
-                    matches--;
-                    break;
-                }
-
-                if (wordsearch[lineIndex][letterIndex + i] != word[Math.Abs(i)])
-                {
-                    matches--;
-                    break;
-                }
+                matches++;
+            }
+            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, 0, -1))
+            {
+                matches++;
             }
 
             return matches;
         }
 
 
-        private static int VerticalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        private int VerticalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
         {
-            var matches = 1;
-            for (int i = 0; i < word.Length; i++)
+            var matches = 0;
+            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, 1, 0))
             {
-                if (wordsearch.Length <= lineIndex + i || lineIndex + i < 0 ||
-                    wordsearch[lineIndex + i].Length <= letterIndex)
-                {
-                    matches--;
-                    break;
-                }
-
-                if (wordsearch[lineIndex + i][letterIndex] != word[Math.Abs(i)])
-                {
-                    matches--;
-                    break;
-                }
+                matches++;
             }
-
-            matches++;
-
-            for (int i = 0; i > -word.Length; i--)
+            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, -1, 0))
             {
-                if (wordsearch.Length <= lineIndex + i || lineIndex + i < 0 ||
-                    wordsearch[lineIndex + i].Length <= letterIndex)
-                {
-                    matches--;
-                    break;
-                }
-
-                if (wordsearch[lineIndex + i][letterIndex] != word[Math.Abs(i)])
-                {
-                    matches--;
-                    break;
-                }
+                matches++;
             }
 
             return matches;
         }
 
-        private static int DiagonalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
+        private int DiagonalMatches(char[][] wordsearch, int lineIndex, int letterIndex, string word)
         {
-            var matches = 1;
+            var matches = 0;
             // down right
-            for (int i = 0; i < word.Length; i++)
+            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, 1, 1))
             {
-                if (lineIndex + i < 0 || letterIndex + i < 0 || wordsearch.Length <= i + lineIndex ||
-                      wordsearch[i + lineIndex].Length <= i + letterIndex)
-                {
-                    matches--;
-                    break;
-                }
-
-                if (wordsearch[i + lineIndex][i + letterIndex] != word[Math.Abs(i)])
-                {
-                    matches--;
-                    break;
-                }
+                matches++;
             }
 
-            matches++;
             // up left
-            for (int i = 0; i < word.Length; i++)
+            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, -1, -1))
             {
-                if (lineIndex + i < 0 || letterIndex - i < 0 || wordsearch.Length <= i + lineIndex ||
-                      letterIndex + i < 0)
-                {
-                    matches--;
-                    break;
-                }
-
-                if (wordsearch[i + lineIndex][letterIndex - i] != word[Math.Abs(i)])
-                {
-                    matches--;
-                    break;
-                }
+                matches++;
             }
 
-            matches++;
             // up right
-            for (int i = 0; i < word.Length; i++)
+            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, -1, 1))
             {
-                if (letterIndex + i < 0 || lineIndex - i < 0 || wordsearch.Length <= lineIndex - i ||
-                lineIndex + i < 0 ||
-                letterIndex + i >= wordsearch[lineIndex - i].Length)
-                {
-                    matches--;
-                    break;
-                }
-
-                if (wordsearch[lineIndex - i][i + letterIndex] != word[Math.Abs(i)])
-                {
-                    matches--;
-                    break;
-                }
+                matches++;
             }
 
-            matches++;
-            
             // down left
-            for (int i = 0; i < word.Length; i++)
+            if (CheckDirection(wordsearch, lineIndex, letterIndex, word, 1, -1))
             {
-                if (letterIndex - i < 0 || lineIndex - i < 0 || wordsearch.Length <= lineIndex - i ||
-                    lineIndex - i < 0 ||
-                    letterIndex - i >= wordsearch[lineIndex - i].Length)
-                {
-                    matches--;
-                    break;
-                }
-
-                if (wordsearch[lineIndex - i][letterIndex - i] != word[Math.Abs(i)])
-                {
-                    matches--;
-                    break;
-                }
+                matches++;
             }
-            
 
             return matches;
         }
