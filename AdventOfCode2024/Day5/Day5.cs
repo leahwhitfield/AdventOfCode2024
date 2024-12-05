@@ -34,20 +34,16 @@ namespace AdventOfCode2024.Day5
             for (var i = 0; i < update.Length; i++)
             {
                 var pageNumber = update[i];
-                foreach (var rule in PageOrderingRules)
+                foreach (var rule in PageOrderingRules.Where(rule =>
+                             update.Contains(rule.Item1) && update.Contains(rule.Item2)))
                 {
-                    if (update.Contains(rule.Item1) && update.Contains(rule.Item2))
+                    if (rule.Item1 == pageNumber)
                     {
-                        if (rule.Item1 == pageNumber)
-                        {
-                            if (!NumberIsBefore(i, rule.Item2, update)) return false;
-                        }
-
-                        if (rule.Item2 == pageNumber)
-                        {
-                            if (!NumberIsAfter(i, rule.Item1, update)) return false;
-                        }
+                        if (!NumberIsBefore(i, rule.Item2, update)) return false;
                     }
+
+                    if (rule.Item2 != pageNumber) continue;
+                    if (!NumberIsAfter(i, rule.Item1, update)) return false;
                 }
             }
 
@@ -93,44 +89,46 @@ namespace AdventOfCode2024.Day5
                 .Select(t => GetMiddlePageNumber(t.orderedUpdate))).Sum();
         }
 
-        public int[] OrderUpdate(int[] update)
+        public int[] OrderUpdate(int[] update, int startFrom = 0)
         {
             var orderedUpdate = new int[update.Length];
             update.CopyTo(orderedUpdate, 0);
-            
-            for (var i = 0; i < update.Length; i++)
+
+            for (var i = startFrom; i < update.Length; i++)
             {
                 var pageNumber = orderedUpdate[i];
-                foreach (var rule in PageOrderingRules)
+                foreach (var rule in PageOrderingRules.Where(rule =>
+                             update.Contains(rule.Item1) && update.Contains(rule.Item2)))
                 {
-                    if (update.Contains(rule.Item1) && update.Contains(rule.Item2))
+                    if (rule.Item1 == pageNumber)
                     {
-                        if (rule.Item1 == pageNumber)
+                        if (!NumberIsBefore(i, rule.Item2, orderedUpdate))
                         {
-                            if (!NumberIsBefore(i, rule.Item2, orderedUpdate))
+                            orderedUpdate[i] = rule.Item2;
+                            orderedUpdate[Array.FindIndex(update, row => row == rule.Item2)] = pageNumber;
+                            if (!IsInCorrectOrder(orderedUpdate))
                             {
-                     
-                                orderedUpdate[i] = rule.Item2;
-                                orderedUpdate[Array.FindIndex(update, row => row == rule.Item2)] = pageNumber;
+                                orderedUpdate = OrderUpdate(orderedUpdate, i);
                             }
+
+                            break;
+                        }
+                    }
+
+                    if (rule.Item2 != pageNumber) continue;
+                    {
+                        if (NumberIsAfter(i, rule.Item1, orderedUpdate)) continue;
+                        orderedUpdate[i] = rule.Item1;
+                        orderedUpdate[Array.FindIndex(update, row => row == rule.Item1)] = pageNumber;
+                        if (!IsInCorrectOrder(orderedUpdate))
+                        {
+                            orderedUpdate = OrderUpdate(orderedUpdate, i);
                         }
 
-                        if (rule.Item2 == pageNumber)
-                        {
-                            if (!NumberIsAfter(i, rule.Item1, orderedUpdate))
-                            {
-                                orderedUpdate[i] = rule.Item1;
-                                orderedUpdate[Array.FindIndex(update, row => row == rule.Item1)] = pageNumber;
-                            }
-                        }
+                        break;
                     }
                 }
             }
-
-            if (!IsInCorrectOrder(orderedUpdate))
-            {
-                orderedUpdate = OrderUpdate(orderedUpdate);
-            };
 
             return orderedUpdate;
         }

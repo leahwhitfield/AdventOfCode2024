@@ -60,7 +60,7 @@ public class Day5Test
     public void ShouldDoPart2_actual()
     {
         _day5 = new(true);
-        Assert.That(_day5.Part2(), Is.EqualTo(0));
+        Assert.That(_day5.Part2(), Is.EqualTo(5169));
     }
 
     #endregion
