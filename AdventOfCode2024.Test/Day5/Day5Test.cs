@@ -12,6 +12,13 @@ public class Day5Test
 
     #region Part1
     [Test]
+    public void ShouldLoadData()
+    {
+        Assert.That(_day5.PageOrderingRules, Has.Count.EqualTo(21));
+        Assert.That(_day5.Updates, Has.Count.EqualTo(6));
+    }
+    
+    [Test]
     public void ShouldDoPart1()
     {
         Assert.That(_day5.Part1(), Is.EqualTo(0));
