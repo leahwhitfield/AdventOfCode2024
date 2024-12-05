@@ -19,16 +19,22 @@ public class Day5Test
     }
     
     [Test]
+    public void ShouldBeCorrectOrder()
+    {
+        Assert.True(_day5.IsInCorrectOrder([75,47,61,53,29]));
+    }
+    
+    [Test]
     public void ShouldDoPart1()
     {
-        Assert.That(_day5.Part1(), Is.EqualTo(0));
+        Assert.That(_day5.Part1(), Is.EqualTo(143));
     }
 
     [Test]
     public void ShouldDoPart1_Actual()
     {
         _day5 = new(true);
-        Assert.That(_day5.Part1(), Is.EqualTo(0));
+        Assert.That(_day5.Part1(), Is.EqualTo(6242));
     }
 
     #endregion
