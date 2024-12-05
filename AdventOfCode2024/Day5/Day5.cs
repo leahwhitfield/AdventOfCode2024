@@ -24,18 +24,6 @@ namespace AdventOfCode2024.Day5
             }
         }
 
-
-        public override int Part1()
-        {
-            int total = 0;
-            foreach (var update in Updates)
-            {
-                if (IsInCorrectOrder(update)) total += GetMiddlePageNumber(update);
-            }
-
-            return total;
-        }
-
         private int GetMiddlePageNumber(int[] update)
         {
             return update[update.Length / 2];
@@ -86,9 +74,65 @@ namespace AdventOfCode2024.Day5
             return false;
         }
 
+        public override int Part1()
+        {
+            int total = 0;
+            foreach (var update in Updates)
+            {
+                if (IsInCorrectOrder(update)) total += GetMiddlePageNumber(update);
+            }
+
+            return total;
+        }
+
+
         public override int Part2()
         {
-            return 0;
+            return (Updates.Select(update => new { update, orderedUpdate = OrderUpdate(update) })
+                .Where(t => !t.orderedUpdate.SequenceEqual(t.update))
+                .Select(t => GetMiddlePageNumber(t.orderedUpdate))).Sum();
+        }
+
+        public int[] OrderUpdate(int[] update)
+        {
+            var orderedUpdate = new int[update.Length];
+            update.CopyTo(orderedUpdate, 0);
+            
+            for (var i = 0; i < update.Length; i++)
+            {
+                var pageNumber = orderedUpdate[i];
+                foreach (var rule in PageOrderingRules)
+                {
+                    if (update.Contains(rule.Item1) && update.Contains(rule.Item2))
+                    {
+                        if (rule.Item1 == pageNumber)
+                        {
+                            if (!NumberIsBefore(i, rule.Item2, orderedUpdate))
+                            {
+                     
+                                orderedUpdate[i] = rule.Item2;
+                                orderedUpdate[Array.FindIndex(update, row => row == rule.Item2)] = pageNumber;
+                            }
+                        }
+
+                        if (rule.Item2 == pageNumber)
+                        {
+                            if (!NumberIsAfter(i, rule.Item1, orderedUpdate))
+                            {
+                                orderedUpdate[i] = rule.Item1;
+                                orderedUpdate[Array.FindIndex(update, row => row == rule.Item1)] = pageNumber;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!IsInCorrectOrder(orderedUpdate))
+            {
+                orderedUpdate = OrderUpdate(orderedUpdate);
+            };
+
+            return orderedUpdate;
         }
     }
 }
