@@ -5,6 +5,12 @@ public class Guard(Position startingPosition, Direction startingDirection)
     public Position Position { get; private set; } = startingPosition;
     public Direction Direction { get; private set; } = startingDirection;
 
+    public void MoveTo(Position position, Direction direction)
+    {
+        Position = position;
+        Direction = direction;
+    }
+
     public void Move()
     {
         Position = Direction switch
@@ -19,7 +25,14 @@ public class Guard(Position startingPosition, Direction startingDirection)
 
     public void Turn()
     {
-        Direction = DirectionMethods.Turn90Degrees(Direction);
+        Direction = Direction switch
+        {
+            Direction.Up => Direction.Right,
+            Direction.Down => Direction.Left,
+            Direction.Left => Direction.Up,
+            Direction.Right => Direction.Down,
+            _ => Direction
+        };
     }
 }
 
@@ -29,39 +42,4 @@ public enum Direction
     Down,
     Left,
     Right
-}
-
-static class DirectionMethods
-{
-    public static Direction GetDirection(char arrow)
-    {
-        switch (arrow)
-        {
-            case '^':
-                return Direction.Up;
-            case '<':
-                return Direction.Left;
-            case '>':
-                return Direction.Right;
-            case 'v':
-                return Direction.Down;
-            default: return Direction.Up;
-        }
-    }
-
-    public static Direction Turn90Degrees(Direction direction)
-    {
-        switch (direction)
-        {
-            case Direction.Up:
-                return Direction.Right;
-            case Direction.Down:
-                return Direction.Left;
-            case Direction.Left:
-                return Direction.Up;
-            case Direction.Right:
-                return Direction.Down;
-            default: return Direction.Up;
-        }
-    }
 }

@@ -18,16 +18,17 @@ namespace AdventOfCode2024.Day6
                     var space = line[x];
                     var position = new Position(y, x);
 
-                    if (space == '#')
+                    switch (space)
                     {
-                        LabMap.Obstacles.Add(position);
-                        continue;
-                    }
-
-                    if (space != '.')
-                    {
-                        startingPosition = position;
-                        LabMap.Guard = new Guard(position, DirectionMethods.GetDirection(space));
+                        case '#':
+                            LabMap.Obstacles.Add(position);
+                            continue;
+                        case '.':
+                            continue;
+                        default:
+                            startingPosition = position;
+                            LabMap.Guard = new Guard(position, Direction.Up);
+                            break;
                     }
                 }
             }
@@ -41,8 +42,26 @@ namespace AdventOfCode2024.Day6
 
         public override int Part2()
         {
+            var numberOfPositions = 0;
+            for (int i = 0; i < LabMap.MapSize.Item1; i++)
+            {
+                for (int j = 0; j < LabMap.MapSize.Item2; j++)
+                {
+                    LabMap.ResetPaths(startingPosition);
+                    var potentialObstaclePostion = new Position(i, j);
+                    if (Equals(potentialObstaclePostion, startingPosition) ||
+                        LabMap.Obstacles.Contains(potentialObstaclePostion)) continue;
+                    LabMap.Obstacles.Add(potentialObstaclePostion);
+                    if (LabMap.CausesLoop())
+                    {
+                        numberOfPositions++;
+                    }
 
-            return 0;
+                    LabMap.Obstacles.Remove(potentialObstaclePostion);
+                }
+            }
+
+            return numberOfPositions;
         }
     }
 }

@@ -1,4 +1,5 @@
 using AdventOfCode2024.Day6;
+using Path = AdventOfCode2024.Day6.Path;
 
 namespace AdventOfCode2024.Test.Day6;
 
@@ -39,18 +40,39 @@ public class Day6Test
     #endregion
 
     #region Part2
+    [Test]
+    public void ShouldBeEqualPaths()
+    {
+        var path1 = new Path(new Position(1, 1), Direction.Left);
+        var path2 = new Path(new Position(1, 1), Direction.Left);
+        Assert.True(path1.Equals(path2));
+    }
+    
+    [Test]
+    public void ShouldNotBeEqualPaths()
+    {
+        var path1 = new Path(new Position(1, 1), Direction.Left);
+        var path2 = new Path(new Position(1, 1), Direction.Up);
+        Assert.False(path1.Equals(path2));
+        path1 = new Path(new Position(1, 2), Direction.Up);
+        path2 = new Path(new Position(1, 5), Direction.Up);
+        Assert.False(path1.Equals(path2));
+
+        HashSet<Path> paths = [path1];
+        Assert.False(paths.Contains(path2));
+    }
 
     [Test]
     public void ShouldDoPart2()
     {
-        Assert.That(_day6.Part2(), Is.EqualTo(0));
+        Assert.That(_day6.Part2(), Is.EqualTo(6));
     }
 
     [Test]
     public void ShouldDoPart2_actual()
     {
         _day6 = new(true);
-        Assert.That(_day6.Part2(), Is.EqualTo(0));
+        Assert.That(_day6.Part2(), Is.EqualTo(1721));
     }
 
     #endregion
