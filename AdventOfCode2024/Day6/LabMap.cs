@@ -5,7 +5,7 @@ public class LabMap((int, int) mapSize)
     public Guard Guard;
     public readonly List<Position> Obstacles = [];
     public (int, int) MapSize = mapSize;
-    private HashSet<Position> _positionsVisited = [];
+    public HashSet<Position> _positionsVisited = [];
     private HashSet<Path> _paths = [];
 
     public int MoveGuard()

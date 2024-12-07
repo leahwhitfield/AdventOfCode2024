@@ -43,22 +43,16 @@ namespace AdventOfCode2024.Day6
         public override int Part2()
         {
             var numberOfPositions = 0;
-            for (int i = 0; i < LabMap.MapSize.Item1; i++)
+            LabMap.MoveGuard();
+            foreach (var potentialObstaclePosition in LabMap._positionsVisited)
             {
-                for (int j = 0; j < LabMap.MapSize.Item2; j++)
-                {
-                    LabMap.ResetPaths(startingPosition);
-                    var potentialObstaclePostion = new Position(i, j);
-                    if (Equals(potentialObstaclePostion, startingPosition) ||
-                        LabMap.Obstacles.Contains(potentialObstaclePostion)) continue;
-                    LabMap.Obstacles.Add(potentialObstaclePostion);
-                    if (LabMap.CausesLoop())
-                    {
-                        numberOfPositions++;
-                    }
+                LabMap.ResetPaths(startingPosition);
+                if (Equals(potentialObstaclePosition, startingPosition) ||
+                    LabMap.Obstacles.Contains(potentialObstaclePosition)) continue;
+                LabMap.Obstacles.Add(potentialObstaclePosition);
+                if (LabMap.CausesLoop()) numberOfPositions++;
 
-                    LabMap.Obstacles.Remove(potentialObstaclePostion);
-                }
+                LabMap.Obstacles.Remove(potentialObstaclePosition);
             }
 
             return numberOfPositions;
