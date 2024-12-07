@@ -62,16 +62,38 @@ public class Day7Test
     #region Part2
 
     [Test]
+    public void ShouldReturnTrueWithConcat()
+    {
+        Assert.True(new CalibrationEquation(156, [15, 6]).IsPossiblyTrue(true));
+        Assert.True(new CalibrationEquation(7290, [6, 8, 6, 15]).IsPossiblyTrue(true));
+        Assert.True(new CalibrationEquation(192, [17, 8, 14]).IsPossiblyTrue(true));
+        Assert.True(new CalibrationEquation(100, [50,40,10]).IsPossiblyTrue(true));
+        Assert.True(new CalibrationEquation(190, [10,19]).IsPossiblyTrue(true));
+        Assert.True(new CalibrationEquation(3267, [81,40,27]).IsPossiblyTrue(true));
+        Assert.True(new CalibrationEquation(292, [11,6,16,20]).IsPossiblyTrue(true));
+    }
+    
+    [Test]
+    public void ShouldReturnFalseWithConcat()
+    {
+        Assert.False(new CalibrationEquation(83, [17, 5]).IsPossiblyTrue(true));
+        Assert.False(new CalibrationEquation(161011, [16, 10, 13]).IsPossiblyTrue(true));
+        Assert.False(new CalibrationEquation(21037, [9, 7, 18, 13]).IsPossiblyTrue(true));
+        Assert.False(new CalibrationEquation(25056746772, [4, 47, 136, 21, 79, 49]).IsPossiblyTrue(true));
+        Assert.False(new CalibrationEquation(1387, [33, 502, 69, 775, 5]).IsPossiblyTrue(true));
+    }
+    
+    [Test]
     public void ShouldDoPart2()
     {
-        Assert.That(_day7.Part2(), Is.EqualTo(0));
+        Assert.That(_day7.Part2(), Is.EqualTo(11387));
     }
 
     [Test]
     public void ShouldDoPart2_actual()
     {
         _day7 = new(true);
-        Assert.That(_day7.Part2(), Is.EqualTo(0));
+        Assert.That(_day7.Part2(), Is.EqualTo(223472064194845));
     }
 
     #endregion

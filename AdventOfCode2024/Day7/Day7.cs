@@ -25,7 +25,7 @@ namespace AdventOfCode2024.Day7
 
         public override long Part2()
         {
-            return 0;
+            return  _calibrationEquations.Where(equation => equation.IsPossiblyTrue(true)).Sum(equation => equation.TestValue);
         }
     }
 }
