@@ -23,7 +23,7 @@ namespace AdventOfCode2024.Day8
 
         public override int Part1()
         {
-            return 0;
+            return Map.GetNumberOfAntinodes();
         }
 
 
