@@ -7,7 +7,7 @@ public class Map((int, int) mapSize)
     public List<Antenna> Antennae { get; } = [];
     private (int, int) MapSize { get; } = mapSize;
 
-    public int GetNumberOfAntinodes()
+    public int GetNumberOfAntinodes(bool considerHarmonics = false)
     {
         HashSet<Position> antinodePositions = [];
         for (var i = 0; i < Antennae.Count; i++)
@@ -17,10 +17,13 @@ public class Map((int, int) mapSize)
             {
                 var otherAntenna = Antennae[j];
                 if (antenna.Equals(otherAntenna)) continue;
-                if (antenna.Frequency == otherAntenna.Frequency)
-                {
-                    antinodePositions.UnionWith(CalculateAntinodePositions(antenna.Position, otherAntenna.Position));
-                }
+                if (antenna.Frequency != otherAntenna.Frequency) continue;
+                if (considerHarmonics)
+                    antinodePositions.UnionWith(CalculateAntinodePositionsPart2(antenna.Position,
+                        otherAntenna.Position));
+                else
+                    antinodePositions.UnionWith(CalculateAntinodePositions(antenna.Position,
+                        otherAntenna.Position));
             }
         }
 
@@ -30,11 +33,39 @@ public class Map((int, int) mapSize)
     public Position[] CalculateAntinodePositions(Position firstAntennaPosition, Position secondAntennaPosition)
     {
         List<Position> positions = [];
-        var xDifference = firstAntennaPosition.X - secondAntennaPosition.X;
-        var yDifference = firstAntennaPosition.Y - secondAntennaPosition.Y;
+        var xDifference = secondAntennaPosition.X - firstAntennaPosition.X;
+        var yDifference = secondAntennaPosition.Y - firstAntennaPosition.Y;
 
-        positions.Add(new Position(firstAntennaPosition.Y + yDifference, firstAntennaPosition.X + xDifference));
-        positions.Add(new Position(secondAntennaPosition.Y - yDifference, secondAntennaPosition.X - xDifference));
+        positions.Add(new Position(firstAntennaPosition.Y - yDifference, firstAntennaPosition.X - xDifference));
+        positions.Add(new Position(secondAntennaPosition.Y + yDifference, secondAntennaPosition.X + xDifference));
+
+        return positions.Where(antinodePosition =>
+            antinodePosition is { Y: >= 0, X: >= 0 } &&
+            antinodePosition.Y < MapSize.Item1 &&
+            antinodePosition.X < MapSize.Item2).ToArray();
+    }
+
+    public Position[] CalculateAntinodePositionsPart2(Position firstAntennaPosition, Position secondAntennaPosition)
+    {
+        List<Position> positions = [];
+        var xDifference = secondAntennaPosition.X - firstAntennaPosition.X;
+        var yDifference = secondAntennaPosition.Y - firstAntennaPosition.Y;
+
+
+        var currentPosition = firstAntennaPosition;
+        while (currentPosition is { Y: >= 0, X: >= 0 })
+        {
+            positions.Add(currentPosition);
+            currentPosition = new Position(currentPosition.Y - yDifference, currentPosition.X - xDifference);
+        }
+
+        currentPosition = secondAntennaPosition;
+        while ( currentPosition.Y < MapSize.Item1 &&
+            currentPosition.X < MapSize.Item2)
+        {
+            positions.Add(currentPosition);
+            currentPosition = new Position(currentPosition.Y + yDifference, currentPosition.X + xDifference);
+        }
         
         return positions.Where(antinodePosition =>
             antinodePosition is { Y: >= 0, X: >= 0 } &&

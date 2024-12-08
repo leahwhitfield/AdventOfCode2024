@@ -65,18 +65,17 @@ public class Day8Test
     #endregion
 
     #region Part2
-
     [Test]
     public void ShouldDoPart2()
     {
-        Assert.That(_day8.Part2(), Is.EqualTo(0));
+        Assert.That(_day8.Part2(), Is.EqualTo(34));
     }
 
     [Test]
     public void ShouldDoPart2_actual()
     {
         _day8 = new(true);
-        Assert.That(_day8.Part2(), Is.EqualTo(0));
+        Assert.That(_day8.Part2(), Is.EqualTo(1064));
     }
 
     #endregion
