@@ -12,6 +12,12 @@ public class Day8Test
 
     #region Part1
     [Test]
+    public void ShouldLoadData()
+    {
+        Assert.That(_day8.Map.Antennae, Has.Count.EqualTo(7));
+    } 
+    
+    [Test]
     public void ShouldDoPart1()
     {
         Assert.That(_day8.Part1(), Is.EqualTo(0));
