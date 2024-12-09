@@ -76,4 +76,9 @@ public class DiskMap
 
         return total;
     }
+
+    public void MoveFiles()
+    {
+        throw new NotImplementedException();
+    }
 }

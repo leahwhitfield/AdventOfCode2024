@@ -65,7 +65,7 @@ public class Day9Test
     [Test]
     public void ShouldDoPart2()
     {
-        Assert.That(_day9.Part2(), Is.EqualTo(0));
+        Assert.That(_day9.Part2(), Is.EqualTo(2858));
     }
 
     [Test]

@@ -36,7 +36,8 @@ namespace AdventOfCode2024.Day9
 
         public override long Part2()
         {
-            return 0;
+            DiskMap.MoveFiles();
+            return DiskMap.GetChecksum();
         }
     }
 }
