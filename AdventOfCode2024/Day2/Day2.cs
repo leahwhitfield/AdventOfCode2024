@@ -14,12 +14,12 @@ namespace AdventOfCode2024.Day2
                 Reports.Add(new Report(values.Select(int.Parse).ToArray()));
             }
         }
-        public override int Part1()
+        public override long Part1()
         {
             return Reports.Count(report => report.IsSafe());
         }
 
-        public override int Part2()
+        public override long Part2()
         {
             return Reports.Count(report => report.IsSafeProblemDampener());
         }

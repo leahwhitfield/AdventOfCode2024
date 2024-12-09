@@ -23,7 +23,7 @@ namespace AdventOfCode2024.Day1
             SecondList.Sort();
         }
 
-        public override int Part1()
+        public override long Part1()
         {
             var distanceCount = 0;
             for (int i = 0; i < FirstList.Count; i++)
@@ -44,7 +44,7 @@ namespace AdventOfCode2024.Day1
             return number * SecondList.FindAll(i => i == number).Count;
         }
 
-        public override int Part2()
+        public override long Part2()
         {
             var similarityScore = 0;
             for (int i = 0; i < FirstList.Count; i++)

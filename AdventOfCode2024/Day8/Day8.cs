@@ -21,13 +21,13 @@ namespace AdventOfCode2024.Day8
             }
         }
 
-        public override int Part1()
+        public override long Part1()
         {
             return Map.GetNumberOfAntinodes();
         }
 
 
-        public override int Part2()
+        public override long Part2()
         {
             return Map.GetNumberOfAntinodes(true);
         }

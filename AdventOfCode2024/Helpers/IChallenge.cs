@@ -4,7 +4,7 @@ namespace AdventOfCode2024.Helpers
 {
     public interface IChallenge
     {
-        int Part1();
-        int Part2();
+        long Part1();
+        long Part2();
     }
 }

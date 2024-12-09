@@ -187,12 +187,12 @@ namespace AdventOfCode2024.Day4
             return total;
         }
 
-        public override int Part1()
+        public override long Part1()
         {
             return WordCount("XMAS", Wordsearch);
         }
 
-        public override int Part2()
+        public override long Part2()
         {
             return FindCrosses("MAS", Wordsearch);
         }

@@ -16,7 +16,7 @@ namespace AdventOfCode2024.Day3
                 Program += line;
             }
         }
-        public override int Part1()
+        public override long Part1()
         {
             int total = 0;
 
@@ -84,7 +84,7 @@ namespace AdventOfCode2024.Day3
             return isDisabled;
         }
 
-        public override int Part2()
+        public override long Part2()
         {
             int total = 0;
             total += FindMultiplyCommandsPart2(Program);

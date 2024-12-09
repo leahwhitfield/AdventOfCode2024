@@ -34,13 +34,13 @@ namespace AdventOfCode2024.Day6
             }
         }
 
-        public override int Part1()
+        public override long Part1()
         {
             return LabMap.MoveGuard();
         }
 
 
-        public override int Part2()
+        public override long Part2()
         {
             var numberOfPositions = 0;
             LabMap.MoveGuard();

@@ -70,7 +70,7 @@ namespace AdventOfCode2024.Day5
             return false;
         }
 
-        public override int Part1()
+        public override long Part1()
         {
             int total = 0;
             foreach (var update in Updates)
@@ -82,7 +82,7 @@ namespace AdventOfCode2024.Day5
         }
 
 
-        public override int Part2()
+        public override long Part2()
         {
             return (Updates.Select(update => new { update, orderedUpdate = OrderUpdate(update) })
                 .Where(t => !t.orderedUpdate.SequenceEqual(t.update))

@@ -8,13 +8,13 @@ namespace AdventOfCode2024.Day10
         {
         }
 
-        public override int Part1()
+        public override long Part1()
         {
             return 0;
         }
 
 
-        public override int Part2()
+        public override long Part2()
         {
             return 0;
         }
