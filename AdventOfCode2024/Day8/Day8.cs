@@ -3,7 +3,7 @@ using AdventOfCode2024.Helpers;
 
 namespace AdventOfCode2024.Day8
 {
-    public class Day8(bool useActual = false) : Challenge('8', useActual)
+    public class Day8(bool useActual = false) : Challenge(8, useActual)
     {
         public Map Map;
 

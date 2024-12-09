@@ -3,7 +3,7 @@
 
 namespace AdventOfCode2024.Day2
 {
-    public class Day2(bool useActual = false) : Challenge('2', useActual)
+    public class Day2(bool useActual = false) : Challenge(2, useActual)
     {
         public List<Report> Reports { get; } = [];
 

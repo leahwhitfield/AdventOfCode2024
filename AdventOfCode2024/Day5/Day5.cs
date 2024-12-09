@@ -2,7 +2,7 @@
 
 namespace AdventOfCode2024.Day5
 {
-    public class Day5(bool useActual = false) : Challenge('5', useActual)
+    public class Day5(bool useActual = false) : Challenge(5, useActual)
     {
         public List<(int, int)> PageOrderingRules = [];
         public List<int[]> Updates = [];

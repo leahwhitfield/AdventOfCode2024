@@ -9,7 +9,7 @@ public abstract class BigChallenge
 
     public abstract void LoadData();
 
-    public BigChallenge(char day, bool useActual)
+    public BigChallenge(int day, bool useActual)
     {
         var input = useActual ? "actual" : "example";
         FileHelper.ReadFromInputFileByLine(Constants.BasePath + "day" + day + "_" + input + ".txt",

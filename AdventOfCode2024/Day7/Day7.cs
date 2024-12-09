@@ -2,7 +2,7 @@
 
 namespace AdventOfCode2024.Day7
 {
-    public class Day7(bool useActual = false) : BigChallenge('7', useActual)
+    public class Day7(bool useActual = false) : BigChallenge(7, useActual)
     {
         public readonly List<CalibrationEquation> _calibrationEquations = [];
 

@@ -4,7 +4,7 @@ using AdventOfCode2024.Helpers;
 
 namespace AdventOfCode2024.Day3
 {
-    public class Day3(bool useActual = false) : Challenge('3', useActual)
+    public class Day3(bool useActual = false) : Challenge(3, useActual)
     {
         private string Program = "";
         Regex mulRegex = new Regex(@"mul\(([0-9]+),([0-9]+)\)");

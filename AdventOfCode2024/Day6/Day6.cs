@@ -2,7 +2,7 @@
 
 namespace AdventOfCode2024.Day6
 {
-    public class Day6(bool useActual = false) : Challenge('6', useActual)
+    public class Day6(bool useActual = false) : Challenge(6, useActual)
     {
         public LabMap LabMap;
         private Position startingPosition;

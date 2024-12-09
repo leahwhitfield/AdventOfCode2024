@@ -2,7 +2,7 @@
 
 namespace AdventOfCode2024.Day4
 {
-    public class Day4(bool useActual = false) : Challenge('4', useActual)
+    public class Day4(bool useActual = false) : Challenge(4, useActual)
     {
         public char[][] Wordsearch { get; private set; }
 

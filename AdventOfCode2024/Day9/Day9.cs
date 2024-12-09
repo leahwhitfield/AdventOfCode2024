@@ -2,7 +2,7 @@
 
 namespace AdventOfCode2024.Day9
 {
-    public class Day9(bool useActual = false) : BigChallenge('9', useActual)
+    public class Day9(bool useActual = false) : BigChallenge(9, useActual)
     {
         public DiskMap DiskMap;
 

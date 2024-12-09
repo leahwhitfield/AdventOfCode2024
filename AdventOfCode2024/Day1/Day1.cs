@@ -2,7 +2,7 @@ using AdventOfCode2024.Helpers;
 
 namespace AdventOfCode2024.Day1
 {
-    public class Day1(bool useActual = false) : Challenge('1', useActual)
+    public class Day1(bool useActual = false) : Challenge(1, useActual)
     {
         public readonly List<int> FirstList = new();
         public readonly List<int> SecondList = new();
