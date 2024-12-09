@@ -2,7 +2,7 @@
 
 namespace AdventOfCode2024.Day9
 {
-    public class Day9(bool useActual = false) : Challenge('9', useActual)
+    public class Day9(bool useActual = false) : BigChallenge('9', useActual)
     {
         public DiskMap DiskMap;
 
@@ -27,14 +27,14 @@ namespace AdventOfCode2024.Day9
             }
         }
 
-        public override int Part1()
+        public override long Part1()
         {
             DiskMap.CompactData();
             return DiskMap.GetChecksum();
         }
 
 
-        public override int Part2()
+        public override long Part2()
         {
             return 0;
         }

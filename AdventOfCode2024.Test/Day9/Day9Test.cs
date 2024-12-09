@@ -13,21 +13,10 @@ public class Day9Test
     }
 
     #region Part1
-
-    [Test]
-    public void ShouldLoadData()
-    {
-        Assert.That(_day9.DiskMap.DiskSpaces[^1].Size, Is.EqualTo(2));
-        Assert.That(_day9.DiskMap.DiskSpaces, Has.Count.EqualTo(18));
-        Assert.That(_day9.DiskMap.DiskSpaces[0].Size, Is.EqualTo(2));
-        Assert.That(_day9.DiskMap.DiskSpaces[3].Size, Is.EqualTo(3));
-        Assert.That(_day9.DiskMap.DiskSpaces[6].Size, Is.EqualTo(3));
-    }
-
     [Test]
     public void ShouldGenerateDiskMap()
     {
-        Assert.That(_day9.DiskMap.GetCurrentDiskMap(), Is.EqualTo("00...111...2...333.44.5555.6666.777.888899"));
+        Assert.That(_day9.DiskMap.Map, Is.EqualTo("00...111...2...333.44.5555.6666.777.888899"));
     }
 
     [Test]
