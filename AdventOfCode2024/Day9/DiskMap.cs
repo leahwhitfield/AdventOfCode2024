@@ -2,7 +2,7 @@
 
 public class DiskMap
 {
-    public string Map = "";
+    public List<int> Map = [];
 
     public void AddDiskSpace(int size, int? id)
     {
@@ -10,8 +10,8 @@ public class DiskMap
 
         for (int i = 0; i < size; i++)
         {
-            if (id != null) Map += id;
-            else Map += '.';
+            if (id != null) Map.Add((int)id);
+            else Map.Add(-1);
         }
     }
 
@@ -23,40 +23,39 @@ public class DiskMap
         }
     }
 
-    public string MoveDataBlockToGap(string map)
+    public List<int> MoveDataBlockToGap(List<int> map)
     {
         var gap = FindGap(map);
-        var newMap = map.ToCharArray();
         var dataBlock = FindLastDataBlock(map);
-        newMap[gap] = dataBlock.Item1;
-        newMap[dataBlock.Item2] = '.';
+        map[gap] = dataBlock.Item1;
+        map[dataBlock.Item2] = -1;
 
-        return new string(newMap);
+        return map;
     }
 
-    private (char, int) FindLastDataBlock(string map)
+    private (int, int) FindLastDataBlock(List<int> map)
     {
-        var dataBlock = '.';
-        for (var i = map.Length - 1; i >= 0; i--)
+        var dataBlock = -1;
+        for (var i = map.Count - 1; i >= 0; i--)
         {
-            if (map[i] != '.') return (map[i], i);
+            if (map[i] != -1) return (map[i], i);
         }
 
         return (dataBlock, 0);
     }
 
-    public int FindGap(string map)
+    public int FindGap(List<int> map)
     {
         var freeSpace = 0;
-        for (var i = 0; i < map.Length; i++)
+        for (var i = 0; i < map.Count; i++)
         {
             var block = map[i];
-            if (block == '.' && freeSpace == 0)
+            if (block == -1 && freeSpace == 0)
             {
                 freeSpace = i;
             }
 
-            if (freeSpace > 0 && block != '.') return freeSpace;
+            if (freeSpace > 0 && block > -1) return freeSpace;
         }
 
         return 0;
@@ -66,10 +65,10 @@ public class DiskMap
     {
         long total = 0;
 
-        for (var i = 0; i < Map.Length; i++)
+        for (var i = 0; i < Map.Count; i++)
         {
             var number = Map[i];
-            if (number != '.')
+            if (number != -1)
             {
                 total += i * uint.Parse(number.ToString());
             }
