@@ -3,10 +3,15 @@
 public class DiskMap
 {
     public List<int> Map = [];
+    public List<File> Files = [];
 
     public void AddDiskSpace(int size, int? id)
     {
         if (size <= 0) return;
+        if (id != null)
+        {
+            Files.Add(new File((int)id, size, Map.Count));
+        }
 
         for (int i = 0; i < size; i++)
         {
@@ -61,6 +66,30 @@ public class DiskMap
         return 0;
     }
 
+    public int FindGapBigEnough(List<int> map, int size)
+    {
+        var freeSpace = 0;
+        var spaceSize = 0;
+        for (var i = 0; i < map.Count; i++)
+        {
+            var block = map[i];
+            if (block == -1)
+            {
+                spaceSize++;
+                if (freeSpace == 0) freeSpace = i;
+            }
+
+            if (freeSpace > 0 && block > -1)
+            {
+                if (spaceSize >= size) return freeSpace;
+                freeSpace = 0;
+                spaceSize = 0;
+            }
+        }
+
+        return 0;
+    }
+
     public long GetChecksum()
     {
         long total = 0;
@@ -77,8 +106,25 @@ public class DiskMap
         return total;
     }
 
+    public void MoveFileToGap(File file, int gap)
+    {
+        for (var i = 0; i < file.Size; i++)
+        {
+            Map[i + gap] = file.Id;
+            Map[file.StartPosition + i] = -1;
+        }
+    }
+
+
     public void MoveFiles()
     {
-        throw new NotImplementedException();
+        for (var fileId = Files.Count - 1; fileId >= 0; fileId--)
+        {
+            var gap = FindGapBigEnough(Map, Files[fileId].Size);
+            if (gap > 0 && gap < Files[fileId].StartPosition)
+            {
+                MoveFileToGap(Files[fileId], gap);
+            }
+        }
     }
 }

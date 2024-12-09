@@ -1,3 +1,5 @@
+using File = AdventOfCode2024.Day9.File;
+
 namespace AdventOfCode2024.Test.Day9;
 
 public class Day9Test
@@ -34,12 +36,12 @@ public class Day9Test
     {
         List<int> expected =
         [
-            0, 0, 9, -1, -1, 1, 1, 1, -1, -1, -1, 2, -1, -1, -1, 3, 3, 3, -1, 4, 4, -1, 5, 5, 5, 5, -1, 6, 6, 6, 6, 6,
+            0, 0, 9, -1, -1, 1, 1, 1, -1, -1, -1, 2, -1, -1, -1, 3, 3, 3, -1, 4, 4, -1, 5, 5, 5, 5, -1, 6, 6, 6, 6,
             -1, 7, 7, 7, -1, 8, 8, 8, 8, 9, -1
         ];
         Assert.That(
             _day9.DiskMap.MoveDataBlockToGap([
-                0, 0, -1, -1, -1, 1, 1, 1, -1, -1, -1, 2, -1, -1, -1, 3, 3, 3, -1, 4, 4, -1, 5, 5, 5, 5, -1, 6, 6, 6, 6,
+                0, 0, -1, -1, -1, 1, 1, 1, -1, -1, -1, 2, -1, -1, -1, 3, 3, 3, -1, 4, 4, -1, 5, 5, 5, 5, -1, 6, 6, 6,
                 6, -1, 7, 7, 7, -1, 8, 8, 8, 8, 9, 9
             ]),
             Is.EqualTo(expected));
@@ -63,6 +65,40 @@ public class Day9Test
     #region Part2
 
     [Test]
+    public void ShouldMoveFileToGap()
+    {
+        List<int> expected =
+        [
+            0, 0, 9, 9, -1, 1, 1, 1, -1, -1, -1, 2, -1, -1, -1, 3, 3, 3, -1, 4, 4, -1, 5, 5, 5, 5, -1, 6, 6, 6, 6,
+            -1, 7, 7, 7, -1, 8, 8, 8, 8, -1, -1
+        ];
+        _day9.DiskMap.MoveFileToGap(_day9.DiskMap.Files[9], 2);
+        Assert.That(_day9.DiskMap.Map, Is.EqualTo(expected));
+    }
+    
+    [Test]
+    public void ShouldFindGap()
+    {
+        List<int> map =
+        [
+            0, 0, 9, 9, -1, 1, 1, 1, -1, -1, -1, 2, -1, -1, -1, 3, 3, 3, -1, 4, 4, -1, 5, 5, 5, 5, -1, 6, 6, 6, 6,
+            -1, 7, 7, 7, -1, 8, 8, 8, 8, -1, -1
+        ];
+        Assert.That(_day9.DiskMap.FindGapBigEnough(map, 3), Is.EqualTo(8));
+    }
+    
+    [Test]
+    public void ShouldNotFindGap()
+    {
+        List<int> map =
+        [
+            0, 0, 9, 9, -1, 1, 1, 1, -1, -1, -1, 2, -1, -1, -1, 3, 3, 3, -1, 4, 4, -1, 5, 5, 5, 5, -1, 6, 6, 6, 6,
+            -1, 7, 7, 7, -1, 8, 8, 8, 8, -1, -1
+        ];
+        Assert.That(_day9.DiskMap.FindGapBigEnough(map, 4), Is.EqualTo(0));
+    }
+
+    [Test]
     public void ShouldDoPart2()
     {
         Assert.That(_day9.Part2(), Is.EqualTo(2858));
@@ -72,7 +108,7 @@ public class Day9Test
     public void ShouldDoPart2_actual()
     {
         _day9 = new(true);
-        Assert.That(_day9.Part2(), Is.EqualTo(0));
+        Assert.That(_day9.Part2(), Is.EqualTo(6304576012713));
     }
 
     #endregion
