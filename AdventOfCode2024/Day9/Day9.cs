@@ -4,13 +4,33 @@ namespace AdventOfCode2024.Day9
 {
     public class Day9(bool useActual = false) : Challenge('9', useActual)
     {
+        public DiskMap DiskMap;
+
         public override void LoadData()
         {
+            DiskMap = new DiskMap();
+            foreach (var line in Data)
+            {
+                var diskMap = line.ToCharArray();
+                for (var i = 0; i < line.Length; i++)
+                {
+                    var number = int.Parse(diskMap[i].ToString());
+                    if (i % 2 == 0)
+                    {
+                        DiskMap.AddDiskSpace(number, i/2);
+                    }
+                    else
+                    {
+                        DiskMap.AddDiskSpace(number, null);
+                    }
+                }
+            }
         }
 
         public override int Part1()
         {
-            return 0;
+            DiskMap.CompactData();
+            return DiskMap.GetChecksum();
         }
 
 
