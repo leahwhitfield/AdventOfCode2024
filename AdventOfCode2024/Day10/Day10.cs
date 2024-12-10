@@ -16,7 +16,7 @@ namespace AdventOfCode2024.Day10
             }
         }
 
-        public int FindTrailheads()
+        public int FindTrailheads(bool shouldBeDistinct = true)
         {
             var startingPositions = GetStartingPositions();
             int totalTrailheadScore = 0;
@@ -25,14 +25,33 @@ namespace AdventOfCode2024.Day10
             {
                 List<(int, int)> currentTrailHead = [startingPosition];
 
-                var pointsReached = NavigateTrailhead(currentTrailHead);
-                totalTrailheadScore += pointsReached.Count;
+                if (shouldBeDistinct) totalTrailheadScore += NinePointsCanNavigateTo(currentTrailHead).Count;
+                else totalTrailheadScore += NumberOfPathsToNinePoints(currentTrailHead);
             }
 
             return totalTrailheadScore;
         }
 
-        private HashSet<(int, int)> NavigateTrailhead(List<(int, int)> currentTrailHead)
+        private int NumberOfPathsToNinePoints(List<(int, int)> currentTrailHead)
+        {
+            var currentPosition = currentTrailHead.Last();
+            List<(int, int)> directions = FindPossibleDirections(currentPosition, currentTrailHead);
+            int score = 0;
+
+            foreach (var direction in directions)
+            {
+                currentTrailHead.Add((direction.Item1, direction.Item2));
+
+                score += NumberOfPathsToNinePoints(currentTrailHead);
+                currentTrailHead.Remove(currentTrailHead.Last());
+            }
+
+            if (currentTrailHead.Count > 9) score++;
+
+            return score;
+        }
+
+        private HashSet<(int, int)> NinePointsCanNavigateTo(List<(int, int)> currentTrailHead)
         {
             var currentPosition = currentTrailHead.Last();
             List<(int, int)> directions = FindPossibleDirections(currentPosition, currentTrailHead);
@@ -44,7 +63,7 @@ namespace AdventOfCode2024.Day10
                 currentTrailHead.Add((direction.Item1, direction.Item2));
 
                 nineHeightPositionsReached =
-                    nineHeightPositionsReached.Union(NavigateTrailhead(currentTrailHead)).ToHashSet();
+                    nineHeightPositionsReached.Union(NinePointsCanNavigateTo(currentTrailHead)).ToHashSet();
                 currentTrailHead.Remove(currentTrailHead.Last());
             }
 
@@ -110,7 +129,7 @@ namespace AdventOfCode2024.Day10
 
         public override long Part2()
         {
-            return 0;
+            return FindTrailheads(false);
         }
     }
 }

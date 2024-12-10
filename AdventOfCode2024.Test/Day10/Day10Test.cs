@@ -43,14 +43,14 @@ public class Day10Test
     [Test]
     public void ShouldDoPart2()
     {
-        Assert.That(_day10.Part2(), Is.EqualTo(0));
+        Assert.That(_day10.Part2(), Is.EqualTo(81));
     }
 
     [Test]
     public void ShouldDoPart2_actual()
     {
         _day10 = new(true);
-        Assert.That(_day10.Part2(), Is.EqualTo(0));
+        Assert.That(_day10.Part2(), Is.EqualTo(1062));
     }
 
     #endregion
