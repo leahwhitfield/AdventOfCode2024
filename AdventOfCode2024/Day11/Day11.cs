@@ -5,45 +5,74 @@ namespace AdventOfCode2024.Day11
     public class Day11(bool useActual = false) : Challenge(11, useActual)
     {
         public long[] Stones = [];
+        Dictionary<(long, long), long> Cache = [];
 
         public override void LoadData()
         {
             Stones = Data[0].Split(" ").Select(long.Parse).ToArray();
         }
 
-        public void Blink()
+        public long FindNumberOfDescendantsOfStone(long stone, int blinkTimes)
         {
-            List<long> newLayout = [];
-            foreach (var stone in Stones)
+            long count = 0;
+            if (Cache.ContainsKey((stone, blinkTimes))) return Cache[(stone, blinkTimes)];
+
+            if (stone.ToString().Length % 2 == 0)
             {
-                if (stone == 0) newLayout.Add(1);
-                else if (stone.ToString().Length % 2 == 0)
+                var newStone = stone.ToString();
+                var stone1 = long.Parse(newStone[new Range(0, newStone.Length / 2)]);
+                var stone2 = long.Parse(newStone[new Range(newStone.Length / 2, newStone.Length)]);
+
+                count++;
+
+                if (blinkTimes - 1 == 0)
                 {
-                    var newStone = stone.ToString();
-                    newLayout.Add(long.Parse(newStone[new Range(0, newStone.Length / 2)]));
-                    newLayout.Add(long.Parse(newStone[new Range(newStone.Length / 2, newStone.Length)]));
+                    Cache.Add((stone, blinkTimes), count);
+                    return count;
                 }
-                else newLayout.Add(stone * 2024);
+                count += FindNumberOfDescendantsOfStone(stone1,
+                    blinkTimes - 1);
+                count += FindNumberOfDescendantsOfStone(stone2,
+                    blinkTimes - 1);
+            }
+            else
+            {
+                if (blinkTimes - 1 == 0)
+                {
+                    Cache.Add((stone, blinkTimes), count);
+                    return count;
+                }
+                if (stone == 0)
+                {
+                    count += FindNumberOfDescendantsOfStone(1, blinkTimes - 1);
+                }
+                else
+                {
+                    if (blinkTimes - 1 == 0)
+                    {
+                        Cache.Add((stone, blinkTimes), count);
+                        return count;
+                    }
+                    count += FindNumberOfDescendantsOfStone(stone * 2024, blinkTimes - 1);
+                }
             }
 
-            Stones = newLayout.ToArray();
+            Cache.Add((stone, blinkTimes), count);
+            return count;
         }
 
 
         public override long Part1()
         {
-            for (int i = 0; i < 25; i++)
-            {
-                Blink();
-            }
-
-            return Stones.Length;
+            return Stones.Aggregate<long, long>(Stones.Length,
+                (current, stone) => current + FindNumberOfDescendantsOfStone(stone, 25));
         }
 
 
         public override long Part2()
         {
-            return 0;
+            return Stones.Aggregate<long, long>(Stones.Length,
+                (current, stone) => current + FindNumberOfDescendantsOfStone(stone, 75));
         }
     }
 }
