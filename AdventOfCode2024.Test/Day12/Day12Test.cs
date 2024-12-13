@@ -12,9 +12,21 @@ public class Day12Test
 
     #region Part1
     [Test]
+    public void ShouldGetPerimeterAndArea()
+    {
+        var region = _day12.Regions[0];
+        Assert.That(region.Area, Is.EqualTo(18));
+        Assert.That(region.Perimeter, Is.EqualTo(12));
+
+        region = _day12.Regions[1];
+        Assert.That(region.Area, Is.EqualTo(8));
+        Assert.That(region.Perimeter, Is.EqualTo(4));
+    }    
+    
+    [Test]
     public void ShouldDoPart1()
     {
-        Assert.That(_day12.Part1(), Is.EqualTo(0));
+        Assert.That(_day12.Part1(), Is.EqualTo(1930));
     }
 
     [Test]
