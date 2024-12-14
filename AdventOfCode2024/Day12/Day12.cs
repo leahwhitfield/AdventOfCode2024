@@ -1,84 +1,121 @@
 ﻿using AdventOfCode2024.Helpers;
-using AdventOfCode2024.Test.Day12;
 
 namespace AdventOfCode2024.Day12
 {
     public class Day12(bool useActual = false) : Challenge(12, useActual)
     {
-        public List<Region> Regions = new List<Region>();
+        public List<Region> Regions = [];
 
         public override void LoadData()
         {
-            var currentRegion = Data[0][0];
-            Regions.Add(new Region(currentRegion, (0, 0)));
             for (var i = 0; i < Data.Count; i++)
             {
                 for (var j = 0; j < Data[i].Length; j++)
                 {
-                    if (Data[i][j] == currentRegion) continue;
+                    var currentRegion = new Region(Data[i][j]);
 
-                    var lastRegion = Regions.Last();
-                    lastRegion.EndPoint = (i, j);
-                    lastRegion.Area = GetArea(lastRegion);
-                    lastRegion.Perimeter = GetPerimeter(lastRegion);
-                    Regions.Add(new Region(currentRegion, (i, j)));
+                    if (Regions.Any(region =>
+                            region.Name == currentRegion.Name && region.PlotPoints.Contains((i, j)))) continue;
+                    currentRegion.PlotPoints.Add((i, j));
+                    currentRegion = FindWholeRegion(currentRegion);
+                    currentRegion.Area = GetArea(currentRegion);
+                    currentRegion.Perimeter = GetPerimeter(currentRegion);
+                    Regions.Add(currentRegion);
+                }
+            }
+        }
+
+        private Region FindWholeRegion(Region currentRegion)
+        {
+            var plotPoints = currentRegion.PlotPoints;
+            SearchForRegions(currentRegion, plotPoints);
+            SearchForRegions(currentRegion, plotPoints);
+
+            currentRegion.PlotPoints = currentRegion.PlotPoints.Concat(plotPoints).ToHashSet();
+
+            return currentRegion;
+        }
+
+        private void SearchForRegions(Region currentRegion, HashSet<(int, int)> plotPoints)
+        {
+            for (var i = 0; i < Data.Count; i++)
+            {
+                for (var j = 0; j < Data[i].Length; j++)
+                {
+                    if (currentRegion.Name != Data[i][j]) continue;
+                    if (plotPoints.Count == 0) plotPoints.Add((i, j));
+                    if (plotPoints.Any(
+                            p => p.Item1 >= i - 1 && p.Item1 <= i + 1 && p.Item2 >= j - 1 && p.Item2 <= j + 1))
+                    {
+                        plotPoints.Add((i, j));
+                    }
                 }
             }
         }
 
         private int GetArea(Region region)
         {
-            var area = 0;
-
-            for (int i = region.StartingPoint.Item1; i <= region.EndPoint.Item1; i++)
-            {
-                for (int j = region.StartingPoint.Item2; j <= region.EndPoint.Item2; j++)
-                {
-                    if (Data[i][j] == region.Name) area++;
-                }
-            }
-
-            // return Data.SelectMany(line => line).Count(letter => letter == c);
-            return area;
+            return region.PlotPoints.Count;
         }
 
         private int GetPerimeter(Region region)
         {
-            var perimeter = 4;
+            var perimeter = 0;
+            var rowIndexes = region.PlotPoints.Select(p => p.Item1).Distinct().Order();
+            List<int> lastRowColumns = null;
+            List<int> currentRowColumns;
 
-            var columns = new Dictionary<int, int>();
-            var rows = new Dictionary<int, int>();
-            for (var i = region.StartingPoint.Item1; i <= region.EndPoint.Item1; i++)
+            foreach (var rowIndex in rowIndexes)
             {
-                for (var j = region.StartingPoint.Item2; j <= region.EndPoint.Item2; j++)
+                currentRowColumns = GetColumnsInRow(region, rowIndex);
+                if (rowIndex == rowIndexes.First())
                 {
-                    if (Data[i][j] != region.Name) continue;
-                    if (!columns.TryAdd(j, 1)) columns[j]++;
-
-                    if (!rows.TryAdd(i, 1)) rows[i]++;
+                    perimeter += currentRowColumns.Count();
+                    lastRowColumns = GetColumnsInRow(region, rowIndex);
                 }
-            }
 
-            switch (rows.Count)
-            {
-                case 1 when columns.Count == 1:
-                    return perimeter;
-                case 1 when columns.Count > 1:
-                    perimeter += 2 * (columns.Count - 1);
-                    break;
-            }
+                if (rowIndex == rowIndexes.Last())
+                {
+                    perimeter += currentRowColumns.Count();
+                }
 
-            switch (columns.Count)
-            {
-                case 1 when rows.Count > 1:
-                    perimeter += 2 * (rows.Count - 1);
-                    break;
-                case > 1 when rows.Count > 1:
-                    perimeter = 2 * (columns.Count + rows.Count);
-                    break;
+                perimeter += 2;
+                if (lastRowColumns.Last() != currentRowColumns.Last())
+                {
+                    perimeter += Math.Abs(lastRowColumns.Last() - currentRowColumns.Last());
+                }
+
+                if (lastRowColumns.First() != currentRowColumns.First())
+                {
+                    perimeter += Math.Abs(lastRowColumns.First() - currentRowColumns.First());
+                }
+
+                perimeter += GetColumnGapLength(currentRowColumns);
+                lastRowColumns = currentRowColumns;
             }
 
             return perimeter;
+        }
+
+        private int GetColumnGapLength(List<int> rowColumns)
+        {
+            var totalGap = 0;
+
+            for (int i = 1; i < rowColumns.Count; i++)
+            {
+                var columnIndex = rowColumns[i];
+                if (columnIndex - rowColumns[i - 1] > 1)
+                {
+                    totalGap += Math.Abs(columnIndex - rowColumns[i - 1]);
+                }
+            }
+
+            return totalGap;
+        }
+
+        private List<int> GetColumnsInRow(Region region, int rowIndex)
+        {
+            return region.PlotPoints.Where(p => p.Item1 == rowIndex).Select(p => p.Item2).Order().ToList();
         }
 
         public override long Part1()
